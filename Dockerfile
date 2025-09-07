@@ -21,11 +21,13 @@ RUN apt update \
     libwebp6 \
     libwebpmux3 \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && cd /tmp
-    # && curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O \
-    # && dpkg -i bullseye_motion_${VERSION}-1_amd64.deb \
-    # && rm -rf ./*.deb
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+
+RUN curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O \
+    && dpkg -i bullseye_motion_${VERSION}-1_amd64.deb \
+    && rm -rf ./*.deb
 
 EXPOSE 8080 8081
 
