@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  docker:
+  docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,5 +15,16 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build the Docker image
         run: make build
+
+      - name: Build the Docker image
+        run: make push
+        if: github.ref_name == 'master'
+  docker-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the Docker image
+        run: make push
+        if: github.ref_name == 'master'
