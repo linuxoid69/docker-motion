@@ -4,6 +4,8 @@ ENV TZ=Europe/Moscow
 
 ARG VERSION
 
+WORKDIR /tmp
+
 RUN apt update \
     && apt upgrade -y \
     && apt install -y \
@@ -20,15 +22,12 @@ RUN apt update \
     libswscale5 \
     libwebp6 \
     libwebpmux3 \
+    wget \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /tmp
-
-RUN curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O
-RUN ls bullseye_motion_${VERSION}-1_amd64.deb
-RUN dpkg --debug=2 -i bullseye_motion_${VERSION}-1_amd64.deb
-RUN rm -rf ./*.deb
+    && rm -rf /var/lib/apt/lists/* \
+    && wget https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb \
+    && dpkg -i bullseye_motion_${VERSION}-1_amd64.deb \
+    && rm -rf ./*.deb
 
 EXPOSE 8080 8081
 
