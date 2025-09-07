@@ -24,6 +24,7 @@ jobs:
         if: github.ref_name == 'master'
   docker-push:
     runs-on: ubuntu-latest
+    needs: docker-build
     steps:
       - name: Build the Docker image
         run: make push
