@@ -26,6 +26,7 @@ RUN apt update \
 WORKDIR /tmp
 
 RUN curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O
+RUN ls bullseye_motion_${VERSION}-1_amd64.deb
 RUN dpkg -i bullseye_motion_${VERSION}-1_amd64.deb
 RUN rm -rf ./*.deb
 
