@@ -25,9 +25,9 @@ RUN apt update \
 
 WORKDIR /tmp
 
-RUN curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O \
-    && dpkg -i bullseye_motion_${VERSION}-1_amd64.deb \
-    && rm -rf ./*.deb
+RUN curl https://github.com/Motion-Project/motion/releases/download/release-${VERSION}/bullseye_motion_${VERSION}-1_amd64.deb -O
+RUN dpkg -i bullseye_motion_${VERSION}-1_amd64.deb
+RUN rm -rf ./*.deb
 
 EXPOSE 8080 8081
 
