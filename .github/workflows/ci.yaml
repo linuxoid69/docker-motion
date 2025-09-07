@@ -19,6 +19,14 @@ jobs:
       - name: Build the Docker image
         run: make build
 
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref_name == 'master'
+
       - name: Push docker image
         run: make push
         if: github.ref_name == 'master'
